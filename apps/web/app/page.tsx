@@ -2,59 +2,60 @@
 
 import { useEffect, useRef } from 'react';
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Lenis from 'lenis';
-import Scene from '@/components/Scene';
+const Scene = dynamic(() => import('@/components/Scene'), { ssr: false });
 import { ArrowRight, Code, Zap, Shield, Activity } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const FEATURES = [
-  {
-    title: 'The Developer Dashboard',
-    icon: <Shield className="w-10 h-10 md:w-12 md:h-12 mb-4 md:mb-6" strokeWidth={2.5} />,
-    color: 'bg-blue-100',
-    description: 'Your Next.js control center. Securely create an account using raw PBKDF2 cryptography.',
-    content: (
-      <>
-        <span className="text-orange-500">BYOK (Bring Your Own Key):</span> We encrypt your OpenAI, Anthropic, or Gemini keys with AES-256-GCM.
-        <br /><br />
-        <span className="text-blue-500">AI Builder:</span> Say &quot;Make my toasts look like a retro 90s cyberpunk game&quot; and we generate the exact CSS.
-      </>
-    )
-  },
-  {
-    title: 'Build-Time Plugins',
-    icon: <Zap className="w-10 h-10 md:w-12 md:h-12 mb-4 md:mb-6" strokeWidth={2.5} />,
-    color: 'bg-green-100',
-    description: 'Install via NPM and configure your Vite or Next.js bundler. When you run npm run build, it downloads your AI-generated CSS dynamically.',
-    content: (
-      <><span className="text-green-600">The Lockfile:</span> Caches CSS locally in <code className="bg-gray-200 px-1">toastops.lock.json</code>. If our backend goes down, your production deployments never fail!</>
-    )
-  },
-  {
-    title: 'Core Client Library',
-    icon: <Code className="w-10 h-10 md:w-12 md:h-12 mb-4 md:mb-6" strokeWidth={2.5} />,
-    color: 'bg-pink-100',
-    description: 'The actual notification engine. No React Context lag! We built a Pure TypeScript Observer Pattern.',
-    content: (
-      <>Run <code className="bg-black text-white px-2 py-1 rounded">toast(&#123; title: &quot;Saved!&quot; &#125;)</code> and it pushes to a raw memory array. The single <code className="bg-gray-200 px-1">&lt;Toaster /&gt;</code> component handles it all natively.</>
-    )
-  },
-  {
-    title: 'Telemetry Loop',
-    icon: <Activity className="w-10 h-10 md:w-12 md:h-12 mb-4 md:mb-6" strokeWidth={2.5} />,
-    color: 'bg-yellow-100',
-    description: 'When an end-user clicks a toast, the core client sends a silent ping back to log an &quot;impression&quot; or &quot;click&quot; event.',
-    content: (
-      <>Look at your dashboard and see exactly how your AI-generated theme is performing in real-time.</>
-    )
-  }
-];
-
 export default function LandingPage() {
   const containerRef = useRef<HTMLDivElement>(null);
+
+  const FEATURES = [
+    {
+      title: 'The Developer Dashboard',
+      icon: <Shield className="w-10 h-10 md:w-12 md:h-12 mb-4 md:mb-6" strokeWidth={2.5} />,
+      color: 'bg-blue-100',
+      description: 'Your Next.js control center. Securely create an account using raw PBKDF2 cryptography.',
+      content: (
+        <>
+          <span className="text-orange-500">BYOK (Bring Your Own Key):</span> We encrypt your OpenAI, Anthropic, or Gemini keys with AES-256-GCM.
+          <br /><br />
+          <span className="text-blue-500">AI Builder:</span> Say &quot;Make my toasts look like a retro 90s cyberpunk game&quot; and we generate the exact CSS.
+        </>
+      )
+    },
+    {
+      title: 'Build-Time Plugins',
+      icon: <Zap className="w-10 h-10 md:w-12 md:h-12 mb-4 md:mb-6" strokeWidth={2.5} />,
+      color: 'bg-green-100',
+      description: 'Install via NPM and configure your Vite or Next.js bundler. When you run npm run build, it downloads your AI-generated CSS dynamically.',
+      content: (
+        <><span className="text-green-600">The Lockfile:</span> Caches CSS locally in <code className="bg-gray-200 px-1">toastops.lock.json</code>. If our backend goes down, your production deployments never fail!</>
+      )
+    },
+    {
+      title: 'Core Client Library',
+      icon: <Code className="w-10 h-10 md:w-12 md:h-12 mb-4 md:mb-6" strokeWidth={2.5} />,
+      color: 'bg-pink-100',
+      description: 'The actual notification engine. No React Context lag! We built a Pure TypeScript Observer Pattern.',
+      content: (
+        <>Run <code className="bg-black text-white px-2 py-1 rounded">toast(&#123; title: &quot;Saved!&quot; &#125;)</code> and it pushes to a raw memory array. The single <code className="bg-gray-200 px-1">&lt;Toaster /&gt;</code> component handles it all natively.</>
+      )
+    },
+    {
+      title: 'Telemetry Loop',
+      icon: <Activity className="w-10 h-10 md:w-12 md:h-12 mb-4 md:mb-6" strokeWidth={2.5} />,
+      color: 'bg-yellow-100',
+      description: 'When an end-user clicks a toast, the core client sends a silent ping back to log an &quot;impression&quot; or &quot;click&quot; event.',
+      content: (
+        <>Look at your dashboard and see exactly how your AI-generated theme is performing in real-time.</>
+      )
+    }
+  ];
 
   useEffect(() => {
     const lenis = new Lenis({

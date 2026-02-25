@@ -39,6 +39,7 @@
     "eslint": "^9",
     "eslint-config-next": "15.1.6",
     "prisma": "^7.4.1",
+    "@prisma/config": "^7.4.1",
     "tailwindcss": "4.1.11",
     "typescript": "^5"
   }
